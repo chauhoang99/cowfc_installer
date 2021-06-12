@@ -66,7 +66,7 @@ IP=""             # Used for user input
 interface=""      # Used for user input
 mod1="proxy"      # This is a proxy mod that is dependent on the other 2
 mod2="proxy_http" # This is related to mod1
-mod3="php7.1"
+mod3="php7.0"
 UPDATE_FILE="$0.tmp"
 UPDATE_BASE="https://raw.githubusercontent.com/chauhoang99/cowfc_installer/master/cowfc.sh"
 # Functions
@@ -277,7 +277,8 @@ function install_required_packages() {
         echo "Adding the PHP 7.1 repository. Please follow any prompts."
         if ! add-apt-repository ppa:ondrej/php; then
             apt-get install --force-yes software-properties-common python-software-properties -y
-            add-apt-repository ppa:ondrej/php
+            LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+            # LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
         fi
         sleep 2s
         echo "Creating file to tell the script you already added the repo"
@@ -307,8 +308,10 @@ function config_mysql() {
     # The below sed command has NOT been tested so we don't know if this will work or not.
     #sed -i -e 's/passwordhere/passwordhere/g' /var/www/html/_site/AdminPage.php
     # Next we will install two more packages to make mysql and sqlite work with PHP
-    apt-get install --force-yes php7.1-mysql -y
-    apt-get install --force-yes sqlite php7.1-sqlite3 -y
+    # apt-get install --force-yes php7.1-mysql -y
+    apt-get install --force-yes php7.0-mysql -y
+    # apt-get install --force-yes sqlite php7.1-sqlite3 -y
+    apt-get install --force-yes sqlite php7.0-sqlite3 -y
     # Now we will set up our first admin user
     echo "Now we're going to set up our first Admin Portal user."
     read -rp "Please enter the username you wish to use: " firstuser
@@ -483,7 +486,7 @@ if [ "$CANRUN" == "TRUE" ]; then
         # Let's set up Apache now
         create_apache_vh_nintendo
         create_apache_vh_wiimmfi
-        apache_mods     # Enable reverse proxy mod and PHP 7.1
+        apache_mods     # Enable reverse proxy mod and PHP 7.0
         install_website # Install the web contents for CoWFC
         config_mysql    # We will set up the mysql password as "passwordhere" and create our first user
         re              # Set up reCaptcha
