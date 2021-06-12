@@ -272,9 +272,9 @@ function install_required_packages() {
     echo "echo "Installing required packages...""
     # Add required package requires packages
     sudo apt install curl git net-tools dnsmasq -y
-    # Add PHP 7.1 repo
-    if [ ! -f "/var/www/.php71-added" ]; then
-        echo "Adding the PHP 7.1 repository. Please follow any prompts."
+    # Add PHP 7.0 repo
+    if [ ! -f "/var/www/.php70-added" ]; then
+        echo "Adding the PHP 7.0 repository. Please follow any prompts."
         if ! add-apt-repository ppa:ondrej/php; then
             apt-get install --force-yes software-properties-common python-software-properties -y
             LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
@@ -282,19 +282,19 @@ function install_required_packages() {
         fi
         sleep 2s
         echo "Creating file to tell the script you already added the repo"
-        touch "/var/www/.php71-added"
+        touch "/var/www/.php70-added"
         echo "I will now reboot your server to free up resources for the next phase"
         sleep 3s
         reboot
         exit
     else
-        echo "The PHP 7.1 repo is already added. If you believe this to ben an error, please type 'rm -rf /var/www/.php71-added' to remove the file which prevents the repository from being added again."
+        echo "The PHP 7.0 repo is already added. If you believe this to ben an error, please type 'rm -rf /var/www/.php70-added' to remove the file which prevents the repository from being added again."
     fi
     # Fix dpkg problems that happened somehow
     dpkg --configure -a
-    echo "Updating & installing PHP 7.1 onto your system..."
+    echo "Updating & installing PHP 7.0 onto your system..."
     apt-get update
-    apt-get install --force-yes php7.1 -y
+    apt-get install --force-yes php7.0 -y
     # Install the other required packages
     apt-get install --force-yes apache2 python2.7 python-twisted dnsmasq git curl -y
 }
