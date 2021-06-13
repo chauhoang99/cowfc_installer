@@ -39,7 +39,7 @@ fi
 # We will test internet connectivity using ping
 if ping -c 2 github.com >/dev/nul; then
     echo "Internet is OK"
-elif ping -c 2 google.com >/dev/nul; then
+elif ping -c 2 torproject.org >/dev/nul; then
     echo "Internet is OK"
 else
     echo "Internet Connection Test Failed!"
@@ -68,7 +68,7 @@ mod1="proxy"      # This is a proxy mod that is dependent on the other 2
 mod2="proxy_http" # This is related to mod1
 mod3="php7.1"
 UPDATE_FILE="$0.tmp"
-UPDATE_BASE="https://raw.githubusercontent.com/chauhoang99/cowfc_installer/master/cowfc.sh"
+UPDATE_BASE="https://raw.githubusercontent.com/EnergyCube/cowfc_installer/master/cowfc.sh"
 # Functions
 
 function update() {
@@ -456,7 +456,7 @@ if [ "$CANRUN" == "TRUE" ]; then
         # Then we will check to see if the Gits for CoWFC and dwc_network_server_emulator exist
         if [ ! -d "/var/www/CoWFC" ]; then
             echo "Git for CoWFC does not exist in /var/www/"
-            while ! git clone https://github.com/chauhoang99/CoWFC.git && [ "$C1" -le "4" ]; do
+            while ! git clone https://github.com/EnergyCube/CoWFC.git && [ "$C1" -le "4" ]; do
                 echo "GIT CLONE FAILED! Retrying....."
                 ((C1 = C1 + 1))
             done
@@ -467,7 +467,7 @@ if [ "$CANRUN" == "TRUE" ]; then
         fi
         if [ ! -d "/var/www/dwc_network_server_emulator" ]; then
             echo "Git for dwc_network_server_emulator does not exist in /var/www"
-            while ! git clone https://github.com/chauhoang99/dwc_network_server_emulator.git && [ "$C2" -le "4" ]; do
+            while ! git clone https://github.com/EnergyCube/dwc_network_server_emulator.git && [ "$C2" -le "4" ]; do
                 echo "GIT CLONE FAILED! Retrying......"
                 ((C2 = C2 + 1))
             done
